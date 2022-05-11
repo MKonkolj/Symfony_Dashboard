@@ -12,8 +12,8 @@ class DashboardController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        if(!$this->isGranted('ROLE_ADMIN'))
-            return $this->redirectToRoute('dashboard_logout');
+        // if(!$this->isGranted('ROLE_ADMIN'))
+        //     return $this->redirectToRoute('dashboard_logout');
 
         return $this->render('dashboard/index.html.twig');
     }

@@ -9,7 +9,7 @@
         {% if error %}
             {{ error.messageKey }}
         {% endif %}
-        <input type="hidden" name="csrf_token" value="{{ csrf_token("authenticate") }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}">
         <input type="text" name="_username" placeholder="email">
         <input type="text" name="_password" placeholder="password">
         <button type="submit" name="submit">Login</button>
