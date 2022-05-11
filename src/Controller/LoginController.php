@@ -21,4 +21,16 @@ class LoginController extends AbstractController
             "error" => $error
         ]);
     }
+
+    #[Route('/forgotten-password', name: 'forgotten-password')]
+    public function forgottenPassword(AuthenticationUtils $auth): Response
+    {
+        $sendMail = mail("mladenkonkolj@gmail.com", "PHP test", "Testiranje php mail funkcije");
+        if (!$sendMail) {
+            $errorMessage = error_get_last()['message'];
+            return new Response($errorMessage);
+        }
+
+        return new Response("Poslat mejl uspešno");
+    }
 }

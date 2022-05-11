@@ -12,9 +12,27 @@ class DashboardController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        // if(!$this->isGranted('ROLE_ADMIN'))
-        //     return $this->redirectToRoute('dashboard_logout');
+        if(!$this->isGranted('ROLE_ADMIN'))
+            return $this->redirectToRoute('dashboard_my-profile');
 
         return $this->render('dashboard/index.html.twig');
+    }
+
+    #[Route('/developers', name: 'developers')]
+    public function developers(): Response
+    {
+        return $this->render('dashboard/developers.html.twig');
+    }
+
+    #[Route('/clients', name: 'clients')]
+    public function clients(): Response
+    {
+        return $this->render('dashboard/clients.html.twig');
+    }
+
+    #[Route('/my-profile', name: 'my-profile')]
+    public function myProfile(): Response
+    {
+        return $this->render('dashboard/my-profile.html.twig');
     }
 }
