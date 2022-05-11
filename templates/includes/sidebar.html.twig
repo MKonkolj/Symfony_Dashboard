@@ -1,9 +1,11 @@
 <div>
-    <a href="/logout">Logout</a>
-    <ul>
-        <li><a href="{{ path("dashboard_index") }}">Index</a></li>
-        <li><a href="{{ path("dashboard_developers") }}">Developers</a></li>
-        <li><a href="{{ path("dashboard_clients") }}">Clients</a></li>
-        <li><a href="{{ path("dashboard_my-profile") }}">My Profile</a></li>
-    </ul>
+    <a href="{{ path('dashboard_logout') }}">Logout</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <ul>
+            <li><a href="{{ path('dashboard_index') }}">Index</a></li>
+            <li><a href="{{ path('dashboard_developers') }}">Developers</a></li>
+            <li><a href="{{ path('dashboard_clients') }}">Clients</a></li>
+            <li><a href="{{ path('dashboard_my-profile') }}">My Profile</a></li>
+        </ul>
+    {% endif %}
 </div>

@@ -6,10 +6,4 @@
 
     <h1>Hello {{ app.user.email }}! 🍔🍕</h1>
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <button class="btn btn-danger mt-5 mb-5">Delete</button>
-    {% endif %}
-
-    <a href="{{ path('dashboard_logout') }}" class="btn btn-danger">Logout</a>
-
 {% endblock %}

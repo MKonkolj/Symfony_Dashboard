@@ -12,7 +12,9 @@
         {% endblock %}
     </head>
     <body>
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
         {{ include("includes/sidebar.html.twig") }}
+    {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>
