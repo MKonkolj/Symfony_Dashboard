@@ -47,6 +47,20 @@ class TaskRepository extends ServiceEntityRepository
         }
     }
 
+    public function findTaskByDeveloperId($developer_id): array
+    {
+        
+        return $this->createQueryBuilder('t')
+            ->select('t.description', 't.date', 't.time', 'u.first_name', 'u.last_name', 'c.client_name')
+            ->leftJoin('t.developer', 'u')
+            ->leftJoin('t.client', 'c')
+            ->setParameter('developer', $developer_id)
+            ->andWhere('t.developer = :developer')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Task[] Returns an array of Task objects
 //     */

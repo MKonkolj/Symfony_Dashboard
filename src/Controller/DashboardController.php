@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\Task;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -82,9 +83,16 @@ class DashboardController extends AbstractController
         // get client by id
         $clientRepo = $this->em->getRepository(Client::class);
         $client = $clientRepo->find($id);
+        
+        // get tasks by client id
+        $taskRepo = $this->em->getRepository(Task::class);
+        $tasks = $taskRepo->findBy(
+            ["client" => $id]
+        );
 
         return $this->render('dashboard/client-show.html.twig', [
-            "client" => $client
+            "client" => $client,
+            "tasks" => $tasks
         ]);
     }
 
@@ -99,8 +107,13 @@ class DashboardController extends AbstractController
         $profileRepo = $this->em->getRepository(User::class);
         $profile = $profileRepo->find($activeUserId);
 
+        // get users taks
+        $tasksRepo = $this->em->getRepository(Task::class);
+        $tasks = $tasksRepo->findTaskByDeveloperId($activeUserId);
+
         return $this->render('dashboard/my-profile.html.twig', [
-            "profile" => $profile
+            "profile" => $profile,
+            "tasks" => $tasks
         ]);
     }
 }
