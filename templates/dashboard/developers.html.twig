@@ -18,7 +18,11 @@
         <tbody>
         {% for row in developers %}
             <tr>
-                {# <td><img src="{{ row.getAvatarPath() }}" alt="{{ row.getAvatarAlt() }}"></td> #}
+                <td><img 
+                    style="width: 50px;border-radius: 50%;height: 50px;object-fit: cover;"
+                    src="{{ asset(row.getAvatarPath()) }}"
+                    alt="{{ row.getAvatarAlt() }}">
+                </td>
                 <td>{{ [row.getFirstName(), row.getLastName()]|join(" ") }}</td>
                 <td>{{ row.email }}</td>
                 <td>{{ row.status }}</td>
@@ -26,7 +30,7 @@
                 <td>{{ row.city }}</td>
                 <td>{{ row.country }}</td>
                 <td><a href="{{ path("dashboard_developer_show", {id: row.id}) }}">View</a></td>
-                <td><a href=""></a></td>
+                <td><a href="{{ path("dashboard_delete", {table: "developer", id:row.id}) }}">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>

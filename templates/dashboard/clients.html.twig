@@ -22,7 +22,7 @@
                 <td>{{ row.manager }}</td>
                 <td>{{ row.getPaymentMethod() }}</td>
                 <td><a href="{{ path("dashboard_client_show", {id: row.id}) }}">View</a></td>
-                <td><a href=""></a></td>
+                <td><a href="{{ path("dashboard_delete", {table: "client", id:row.id}) }}">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>
