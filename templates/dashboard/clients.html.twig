@@ -4,6 +4,28 @@
 
 {% block body %}
 
-    <h1>Hello {{ app.user.email }}! 🍔🍕</h1>
+    <table>
+        <thead>
+            <th>Avatar</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Manager</th>
+            <th>Payment</th>
+            <th>Options</th>
+        </thead>
+        <tbody>
+        {% for row in clients %}
+            <tr>
+                <td><img style="width: 50px;" src="{{ row.avatar }}" alt="{{ row.getClientName() ~ " avatar" }}"></td>
+                <td>{{ row.getClientName() }}</td>
+                <td>{{ row.email }}</td>
+                <td>{{ row.manager }}</td>
+                <td>{{ row.getPaymentMethod() }}</td>
+                <td><a href="{{ path("dashboard_client_show", {id: row.id}) }}">View</a></td>
+                <td><a href=""></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

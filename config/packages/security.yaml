@@ -20,7 +20,7 @@ security:
             form_login:
                 login_path: dashboard_login
                 check_path: dashboard_login
-                default_target_path: dashboard_index
+                default_target_path: dashboard_my-profile
                 enable_csrf: true
             logout:
                 path: dashboard_logout
