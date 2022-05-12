@@ -20,6 +20,7 @@ class DashboardController extends AbstractController
         $this->em = $em;
     }
 
+    /////////////// DEVELOPER routes //////////////////
     #[Route('/developers', name: 'developers')]
     public function developers(): Response
     {
@@ -60,6 +61,7 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    /////////////// CLIENT routes //////////////////
     #[Route('/clients', name: 'clients')]
     public function clients(): Response
     {   
@@ -99,6 +101,7 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    /////////////// MY PROFILE routes //////////////////
     #[Route('/my-profile', name: 'my-profile')]
     public function myProfile(Security $security): Response
     {   
@@ -118,5 +121,38 @@ class DashboardController extends AbstractController
             "profile" => $profile,
             "tasks" => $tasks
         ]);
+    }
+
+    /////////////// delete route //////////////////
+    #[Route('/{table}/delete/{id}', name: 'delete', methods: ["GET", "DELETE"])]
+    public function delete($table, $id): Response
+    {   
+        // Redirect user if not Admin
+        if(!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('dashboard_my-profile');
+        }
+
+        // provera iz koje tabele brišemo podatke
+        // ukoliko brišemo iz task tabele, menjamo table u myprofile da bi redirekcija odvela na tu stranicu
+        switch ($table) {
+            case "developer":
+                $repository = $this->em->getRepository(User::class);
+                break;
+            case "client":
+                $repository = $this->em->getRepository(Client::class);
+                break;
+            case "task":
+                $repository = $this->em->getRepository(Task::class);
+                $table = "my-profile";
+                break;
+            default:
+                return $this->redirectToRoute("dashboard_my-profile");
+        }
+        
+        $row = $repository->find($id);
+        $this->em->remove($row);
+        $this->em->flush();
+
+        return $this->redirectToRoute("dashboard_" . $table);
     }
 }
