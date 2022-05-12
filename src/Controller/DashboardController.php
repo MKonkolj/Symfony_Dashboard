@@ -50,8 +50,13 @@ class DashboardController extends AbstractController
         $developerRepo = $this->em->getRepository(User::class);
         $developer = $developerRepo->find($id);
 
+        // get tasks by developer id
+        $taskRepo = $this->em->getRepository(Task::class);
+        $tasks = $taskRepo->findDeveloperTasks($id);
+
         return $this->render('dashboard/developer-show.html.twig', [
-            "developer" => $developer
+            "developer" => $developer,
+            "tasks" => $tasks
         ]);
     }
 
@@ -86,9 +91,7 @@ class DashboardController extends AbstractController
         
         // get tasks by client id
         $taskRepo = $this->em->getRepository(Task::class);
-        $tasks = $taskRepo->findBy(
-            ["client" => $id]
-        );
+        $tasks = $taskRepo->findClientTasks($id);
 
         return $this->render('dashboard/client-show.html.twig', [
             "client" => $client,
@@ -109,7 +112,7 @@ class DashboardController extends AbstractController
 
         // get users taks
         $tasksRepo = $this->em->getRepository(Task::class);
-        $tasks = $tasksRepo->findTaskByDeveloperId($activeUserId);
+        $tasks = $tasksRepo->findDeveloperTasks($activeUserId);
 
         return $this->render('dashboard/my-profile.html.twig', [
             "profile" => $profile,
