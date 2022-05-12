@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route("/dc7161be3dbf2250c8954e560cc35060", name: "dashboard_")]
 class DashboardController extends AbstractController
@@ -44,7 +45,7 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
-        // get develer with id
+        // get developer by id
         $developerRepo = $this->em->getRepository(User::class);
         $developer = $developerRepo->find($id);
 
@@ -78,7 +79,7 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
-        // get develer with id
+        // get client by id
         $clientRepo = $this->em->getRepository(Client::class);
         $client = $clientRepo->find($id);
 
@@ -88,8 +89,18 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/my-profile', name: 'my-profile')]
-    public function myProfile(): Response
-    {        
-        return $this->render('dashboard/my-profile.html.twig');
+    public function myProfile(Security $security): Response
+    {   
+        // get id for the logged user
+        $activeUser = $security->getUser();
+        $activeUserId = $activeUser->getId();
+
+        // get logged user data
+        $profileRepo = $this->em->getRepository(User::class);
+        $profile = $profileRepo->find($activeUserId);
+
+        return $this->render('dashboard/my-profile.html.twig', [
+            "profile" => $profile
+        ]);
     }
 }
