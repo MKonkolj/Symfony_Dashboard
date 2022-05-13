@@ -4,6 +4,21 @@
 
 {% block body %}
 
+    {{ form_start(add_user_form) }}
+        {{ form_row(add_user_form.first_name) }}
+        {{ form_row(add_user_form.last_name) }}
+        {{ form_row(add_user_form.email) }}
+        {{ form_row(add_user_form.plainPassword, {label: 'Password'}) }}
+        {{ form_row(add_user_form.roles, {label: "Role"}) }}
+        {{ form_row(add_user_form.street) }}
+        {{ form_row(add_user_form.city) }}
+        {{ form_row(add_user_form.country) }}
+        {{ form_row(add_user_form.bank_acc) }}
+        {{ form_row(add_user_form.status) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(add_user_form) }}
+
     <table>
         <thead>
             <th>Avatar</th>
@@ -30,7 +45,7 @@
                 <td>{{ row.city }}</td>
                 <td>{{ row.country }}</td>
                 <td><a href="{{ path("dashboard_developer_show", {id: row.id}) }}">View</a></td>
-                <td><a href="{{ path("dashboard_delete", {table: "developer", id:row.id}) }}">Delete</a></td>
+                <td><a href="{{ path("dashboard_delete", {route: "developer", id:row.id}) }}">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>

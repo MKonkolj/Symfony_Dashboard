@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Task;
 use App\Entity\User;
+use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,9 +34,16 @@ class DashboardController extends AbstractController
         $developersRepo = $this->em->getRepository(User::class);
         $developers = $developersRepo->findAll();
 
+        // create add developer form
+        // this form is handled by RegistrationController.php
+        $user = new User();
+        $addForm = $this->createForm(RegistrationFormType::class, $user, [
+            'action' => $this->generateUrl('dashboard_register')
+        ]);
 
         return $this->render('dashboard/developers.html.twig', [
-            "developers" => $developers
+            "developers" => $developers,
+            "add_user_form" => $addForm->createView()
         ]);
     }
 
@@ -124,8 +132,8 @@ class DashboardController extends AbstractController
     }
 
     /////////////// delete route //////////////////
-    #[Route('/{table}/delete/{id}', name: 'delete', methods: ["GET", "DELETE"])]
-    public function delete($table, $id): Response
+    #[Route('/{route}/delete/{id}', name: 'delete', methods: ["GET", "DELETE"])]
+    public function delete($route, $id): Response
     {   
         // Redirect user if not Admin
         if(!$this->isGranted('ROLE_ADMIN')) {
@@ -134,16 +142,18 @@ class DashboardController extends AbstractController
 
         // provera iz koje tabele brišemo podatke
         // ukoliko brišemo iz task tabele, menjamo table u myprofile da bi redirekcija odvela na tu stranicu
-        switch ($table) {
+        switch ($route) {
             case "developer":
                 $repository = $this->em->getRepository(User::class);
+                $route = "developers";
                 break;
             case "client":
                 $repository = $this->em->getRepository(Client::class);
+                $route = "clients";
                 break;
             case "task":
                 $repository = $this->em->getRepository(Task::class);
-                $table = "my-profile";
+                $route = "my-profile";
                 break;
             default:
                 return $this->redirectToRoute("dashboard_my-profile");
@@ -153,6 +163,6 @@ class DashboardController extends AbstractController
         $this->em->remove($row);
         $this->em->flush();
 
-        return $this->redirectToRoute("dashboard_" . $table);
+        return $this->redirectToRoute("dashboard_" . $route);
     }
 }

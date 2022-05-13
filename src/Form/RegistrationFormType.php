@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -32,27 +31,27 @@ class RegistrationFormType extends AbstractType
             ]])
             ->add('email', EmailType::class, ['required' => false, 'constraints' => [
                 new NotBlank([
-                    'message' => 'Please enter a email'
+                    'message' => 'Please enter your email'
                 ])
             ]])
             ->add('street', TextType::class, ['required' => false, 'constraints' => [
                 new NotBlank([
-                    'message' => 'Please enter your firstname'
+                    'message' => 'Please enter street'
                 ])
             ]])
             ->add('city', TextType::class, ['required' => false, 'constraints' => [
                 new NotBlank([
-                    'message' => 'Please enter your lastname'
+                    'message' => 'Please enter city'
                 ])
             ]])
             ->add('country', TextType::class, ['required' => false, 'constraints' => [
                 new NotBlank([
-                    'message' => 'Please enter a email'
+                    'message' => 'Please enter country'
                 ])
             ]])
             ->add('bank_acc', TextType::class, ['required' => false, 'constraints' => [
                 new NotBlank([
-                    'message' => 'Please enter a email'
+                    'message' => 'Please enter your bank account'
                 ])
             ]])
             ->add('status', CheckboxType::class, [
