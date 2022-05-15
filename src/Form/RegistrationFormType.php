@@ -19,37 +19,37 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('first_name', TextType::class, ['required' => false, 'constraints' => [
+            ->add('first_name', TextType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your firstname'
                 ])
             ]])
-            ->add('last_name', TextType::class, ['required' => false, 'constraints' => [
+            ->add('last_name', TextType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your lastname'
                 ])
             ]])
-            ->add('email', EmailType::class, ['required' => false, 'constraints' => [
+            ->add('email', EmailType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your email'
                 ])
             ]])
-            ->add('street', TextType::class, ['required' => false, 'constraints' => [
+            ->add('street', TextType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter street'
                 ])
             ]])
-            ->add('city', TextType::class, ['required' => false, 'constraints' => [
+            ->add('city', TextType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter city'
                 ])
             ]])
-            ->add('country', TextType::class, ['required' => false, 'constraints' => [
+            ->add('country', TextType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter country'
                 ])
             ]])
-            ->add('bank_acc', TextType::class, ['required' => false, 'constraints' => [
+            ->add('bank_acc', TextType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your bank account'
                 ])
@@ -59,6 +59,7 @@ class RegistrationFormType extends AbstractType
                 'required' => false,
             ])
             ->add('roles', ChoiceType::class, [
+                'required' => true,
                 'multiple' => true,
                 'choices' => [
                     'Developer' => "ROLE_DEV",

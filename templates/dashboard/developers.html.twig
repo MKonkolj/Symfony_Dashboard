@@ -14,7 +14,7 @@
         {{ form_row(add_user_form.city) }}
         {{ form_row(add_user_form.country) }}
         {{ form_row(add_user_form.bank_acc) }}
-        {{ form_row(add_user_form.status) }}
+        {{ form_row(add_user_form.status, {label: 'Active'}) }}
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(add_user_form) }}

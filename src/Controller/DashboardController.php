@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Task;
 use App\Entity\User;
+use App\Form\ClientFormType;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
@@ -23,7 +25,7 @@ class DashboardController extends AbstractController
 
     /////////////// DEVELOPER routes //////////////////
     #[Route('/developers', name: 'developers')]
-    public function developers(): Response
+    public function developers(Request $request): Response
     {
         // Redirect user if not Admin
         if(!$this->isGranted('ROLE_ADMIN')) {
@@ -34,6 +36,7 @@ class DashboardController extends AbstractController
         $developersRepo = $this->em->getRepository(User::class);
         $developers = $developersRepo->findAll();
 
+        
         // create add developer form
         // this form is handled by RegistrationController.php
         $user = new User();
@@ -71,7 +74,7 @@ class DashboardController extends AbstractController
 
     /////////////// CLIENT routes //////////////////
     #[Route('/clients', name: 'clients')]
-    public function clients(): Response
+    public function clients(Request $request): Response
     {   
         // Redirect user if not Admin
         if(!$this->isGranted('ROLE_ADMIN')) {
@@ -81,9 +84,27 @@ class DashboardController extends AbstractController
         // get all clients
         $clientRepo = $this->em->getRepository(Client::class);
         $clients = $clientRepo->findAll();
+
+        // generate add client form
+        $newClient = new Client();
+        $addForm = $this->createForm(ClientFormType::class, $newClient);
+
+        // handle add client request
+        $addForm->handleRequest($request);
+        if ($addForm->isSubmitted() && $addForm->isValid()) {
+
+            // set placeholder avatar path, to be changed later
+            $newClient->setAvatar("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJWG5HUp6TKCEj4RDQ2q0PZ1vjp0YJ_LtXr1cXepxZmSeiB4qHHK0ofSaZj33H3WpKdgI&usqp=CAU");
+
+            $this->em->persist($newClient);
+            $this->em->flush();
+
+            return $this->redirectToRoute('dashboard_clients');
+        }
         
         return $this->render('dashboard/clients.html.twig', [
-            "clients" => $clients
+            "clients" => $clients,
+            "add_client_form" => $addForm->createView()
         ]);
     }
 
@@ -124,6 +145,9 @@ class DashboardController extends AbstractController
         // get users taks
         $tasksRepo = $this->em->getRepository(Task::class);
         $tasks = $tasksRepo->findDeveloperTasks($activeUserId);
+
+        // generate form for adding tasks
+
 
         return $this->render('dashboard/my-profile.html.twig', [
             "profile" => $profile,
