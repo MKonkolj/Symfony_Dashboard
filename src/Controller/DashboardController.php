@@ -151,7 +151,7 @@ class DashboardController extends AbstractController
         $task = new Task();
         $form = $this->createForm(TaskFormType::class, $task);
 
-        // handle add form request
+        // handle add task request
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
