@@ -29,8 +29,6 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            
-            $user->setRoles(["ROLE_DEV"]);
 
             // set placeholder avatar image path, to be changed later
             $user->setAvatarPath("./images/profile-images/jake-nackos.jpg");

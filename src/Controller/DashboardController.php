@@ -7,6 +7,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\ClientFormType;
 use App\Form\RegistrationFormType;
+use App\Form\TaskFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -132,7 +133,7 @@ class DashboardController extends AbstractController
 
     /////////////// MY PROFILE routes //////////////////
     #[Route('/my-profile', name: 'my-profile')]
-    public function myProfile(Security $security): Response
+    public function myProfile(Security $security, Request $request): Response
     {   
         // get id for the logged user
         $activeUser = $security->getUser();
@@ -147,11 +148,26 @@ class DashboardController extends AbstractController
         $tasks = $tasksRepo->findDeveloperTasks($activeUserId);
 
         // generate form for adding tasks
+        $task = new Task();
+        $form = $this->createForm(TaskFormType::class, $task);
+
+        // handle add form request
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $task->setDeveloper($activeUser);
+
+            $this->em->persist($task);
+            $this->em->flush();
+
+            return $this->redirectToRoute('dashboard_my-profile');
+        }
 
 
         return $this->render('dashboard/my-profile.html.twig', [
             "profile" => $profile,
-            "tasks" => $tasks
+            "tasks" => $tasks,
+            "add_task_form" => $form->createView()
         ]);
     }
 

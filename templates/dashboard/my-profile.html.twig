@@ -3,6 +3,8 @@
 {% block title %}My profile{% endblock %}
 
 {% block body %}
+    
+    {{ form(add_task_form) }}
 
     {{ dump(profile) }}
     {{ dump(tasks) }}
