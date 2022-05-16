@@ -4,9 +4,42 @@
 
 {% block body %}
     
-    {{ form(add_task_form) }}
+    <div class="profile-hours-container grid-2-1">
+        <!-- PROFILE SIDE -->
+        <div class="profile-container">
+            <span class="edit-profile edit-option options-icon"></span>
+            <img class="profile-avatar" src="{{ asset("." ~ profile.getAvatarPath()) }}" alt="{{ profile.getAvatarAlt() }}">
+            <p class="profile-title">Lorem Ipsum</p>
+            <div class="profile-info">
+                <p><strong>First Name: </strong><span>{{ profile.getFirstName() }}</span></p>
+                <p><strong>Last Name: </strong><span>{{ profile.getLastName() }}</span></p>
+                <p><strong>Email: </strong><span>{{ profile.email }}</span></p>
+                <p><strong>Role: </strong><span>
+                    {% for role in profile.roles %}
+                        {% if role == "ROLE_DEV" %}
+                            Developer
+                        {% endif %}
+                        {% if role == "ROLE_ADMIN" %}
+                            Administrator
+                        {% endif %}
+                    {% endfor %}
+                </span></p>
+                <p><strong>Bank account: </strong><span>{{ profile.getBankAcc() }}</span></p>
+                <p><strong>Status: </strong><span>
+                    {% if profile.status == true %}
+                        🟢 Active
+                    {% else %}
+                        🔴 Inactive
+                    {% endif %}
+                </span></p>
+                <a class="insert-hours-btn btn-primary">Insert hours</a>
+            </div>
+        </div>
+        <!-- TABLE SIDE -->
+        {% if not is_granted("ROLE_ADMIN") %}
+        {{ include("includes/task-table.html.twig") }}
+        {% endif %}
+    </div>
 
-    {{ dump(profile) }}
-    {{ dump(tasks) }}
-
+    {# {{ form(add_task_form) }} #}
 {% endblock %}

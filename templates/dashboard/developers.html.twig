@@ -4,7 +4,54 @@
 
 {% block body %}
 
-    {{ form_start(add_user_form) }}
+
+    <!-- TOPBAR -->
+    <div class="top-section">
+        <input class="searchbar" type="text" placeholder="Search">
+        <input class="add-user-btn btn-primary" type="submit" value="Add user">
+    </div>
+    <!-- TABLE -->
+    <div class="table-div">
+        <table class="table">
+            <thead>
+                <th class="table-cell avatar-column">Avatar</th>
+                <th class="table-cell name-column">Name</th>
+                <th class="table-cell">Email</th>
+                <th class="table-cell">Status</th>
+                <th class="table-cell">Street</th>
+                <th class="table-cell">City</th>
+                <th class="table-cell">Country</th>
+                <th class="table-cell options-column">Options</th>
+            </thead>
+            <tbody>
+            {% for row in developers %}
+                <tr>
+                    <td class="table-cell avatar-column"><img src="{{ asset(row.getAvatarPath()) }}" alt="{{ row.getAvatarAlt() }}"></td>
+                    <td class="table-cell name-column">{{ [row.getFirstName(), row.getLastName()]|join(" ") }}</td>
+                    <td class="table-cell">{{ row.email }}</td>
+                    <td class="table-cell">
+                        {% if row.status %}
+                            Active
+                        {% else %}
+                            Inactive
+                        {% endif %}
+                    </td>
+                    <td class="table-cell">{{ row.street }}</td>
+                    <td class="table-cell">{{ row.city }}</td>
+                    <td class="table-cell">{{ row.country }}</td>
+                    <td class="table-cell options-column">
+                        <div class="options-container">
+                            <a href="{{ path("dashboard_developer_show", {id: row.id}) }}"><span class="view-option options-icon"></span></a>
+                            <a href="{{ path("dashboard_delete", {route: "developer", id:row.id}) }}"><span class="delete-option options-icon"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {# {{ form_start(add_user_form) }}
         {{ form_row(add_user_form.first_name) }}
         {{ form_row(add_user_form.last_name) }}
         {{ form_row(add_user_form.email) }}
@@ -17,38 +64,5 @@
         {{ form_row(add_user_form.status, {label: 'Active'}) }}
 
         <button type="submit" class="btn">Add user</button>
-    {{ form_end(add_user_form) }}
-
-    <table>
-        <thead>
-            <th>Avatar</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Street</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Options</th>
-        </thead>
-        <tbody>
-        {% for row in developers %}
-            <tr>
-                <td><img 
-                    style="width: 50px;border-radius: 50%;height: 50px;object-fit: cover;"
-                    src="{{ asset(row.getAvatarPath()) }}"
-                    alt="{{ row.getAvatarAlt() }}">
-                </td>
-                <td>{{ [row.getFirstName(), row.getLastName()]|join(" ") }}</td>
-                <td>{{ row.email }}</td>
-                <td>{{ row.status }}</td>
-                <td>{{ row.street }}</td>
-                <td>{{ row.city }}</td>
-                <td>{{ row.country }}</td>
-                <td><a href="{{ path("dashboard_developer_show", {id: row.id}) }}">View</a></td>
-                <td><a href="{{ path("dashboard_delete", {route: "developer", id:row.id}) }}">Delete</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+    {{ form_end(add_user_form) }} #}
 {% endblock %}

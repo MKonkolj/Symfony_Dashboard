@@ -175,3 +175,220 @@ a {
     text-align: left;
     height: calc(100vh - 60px);
 }
+
+/* PROFILE SIDE */
+
+.profile-hours-container {
+    gap: 60px;
+    padding: clamp(2rem, 0.9133986928104574rem + 4.575163398692811vw, 3.75rem);;
+    height: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.profile-container {
+    border-right: 1px solid var(--light-grey);
+    max-width: 275px;
+    padding-right: clamp(2rem, 0.9133986928104574rem + 4.575163398692811vw, 3.75rem);
+}
+
+.edit-profile {
+    margin-left: auto;
+}
+
+.profile-avatar {
+    display: block;
+    margin: 25px auto 30px;
+    height: 140px;
+    object-fit: cover;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.profile-title {
+    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 1.267156862745098rem + 0.9803921568627451vw, 1.875rem);
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.profile-info {
+    display: grid;
+    gap: 5px;
+}
+
+.profile-info .btn-primary {
+    margin-block: 10px;
+}
+
+/* PROFILE TABLE SIDE */
+
+.profile-table-container {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    border-radius: 20px;
+}
+
+.profile-table th {
+    background: var(--blue-grad);
+    font-size: 1rem;
+    font-size: clamp(0.8125rem, 0.5642421602787456rem + 1.0452961672473868vw, 1rem);
+    color: var(--white);
+    padding: 16px 20px;
+    position: sticky;
+}
+
+.profile-table tbody tr {
+    background-color: #f4f3f6;
+}
+
+.profile-table tbody tr:nth-child(even) {
+    background-color: #faf9fc;
+}
+
+.profile-table-cell {
+    padding: 20px;
+    border: 1px solid var(--white);
+    font-size: 0.875rem;
+    color: var(--dark-grey);
+}
+
+.profile-hours-option {
+    cursor: pointer;
+    display: flex;
+}
+
+.profile-hours-option:hover .dot{
+    background: var(--blue);
+}
+
+.hours-option {
+    display: grid;
+    grid-template-columns: 6px 6px 6px;
+    justify-content: center;
+}
+
+/* TABLE */
+
+.table-div {
+    width: 100%;
+    height: calc(100% - 100px);
+    overflow: scroll;
+    border-radius: 20px;
+}
+
+.table {
+    table-layout: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border-style: hidden;
+}
+
+.table-cell {
+    padding: clamp(0.9375rem, 0.35539215686274506rem + 2.450980392156863vw, 1.875rem);
+    border: 1px solid var(--light-grey);
+    white-space: normal;
+}
+
+.avatar-column {
+    padding: 10px 30px 10px 30px;
+    text-align: center;
+}
+
+.avatar-column img {
+    display: block;
+    margin: 0 auto;
+    width: clamp(3.125rem, 1.9607843137254901rem + 4.901960784313726vw, 5rem);
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.options-container {
+    border: none;
+    display: flex;
+    gap: 23px;
+}
+
+.options-icon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.options-icon:hover {
+    filter: invert(37%) sepia(100%) saturate(2345%) hue-rotate(208deg) brightness(95%) contrast(96%);
+}
+
+.edit-option {
+    background-image: url(../icons/edit-icon.png);
+}
+
+.view-option {
+    background-image: url(../icons/view-icon.png);
+}
+
+.delete-option {
+    background-image: url(../icons/delete-icon.png);
+}
+
+.time-option {
+    background-image: url(../icons/time-icon.png);
+}
+
+.view-dark-option {
+    background-image: url(../icons/view-dark-icon.png);
+}
+
+.invoice-option {
+    background-image: url(../icons/invoice-icon.png);
+}
+
+/* BLACK ALPHA */
+
+.black-alpha {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    display: none;
+}
+
+.black-alpha.show {
+    display: block;
+}
+
+/* TOPBAR */
+.top-section {
+    height: 100px;
+    border-bottom: 1px solid var(--light-grey);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.searchbar {
+    background: transparent;
+    border: none;
+    padding-left: 100px;
+    width: 100%;
+    caret-color: var(--light-blue);
+    color: var(--light-blue);
+}
+
+.top-section::before {
+    content: "";
+    background: url(../icons/search-icon.svg) no-repeat center;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+}
+
+.add-user-btn {
+    margin: 30px 60px 30px 10px;
+}

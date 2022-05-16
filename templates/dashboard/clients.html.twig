@@ -4,35 +4,47 @@
 
 {% block body %}
 
-    {{ form_start(add_client_form) }}
+    {# {{ form_start(add_client_form) }}
         {{ form_row(add_client_form.client_name, {label: 'Client name'}) }}
         {{ form_row(add_client_form.email) }}
         {{ form_row(add_client_form.manager) }}
         {{ form_row(add_client_form.payment_method) }}
-    {{ form_end(add_client_form) }}
+    {{ form_end(add_client_form) }} #}
+    <!-- TOPBAR -->
+    <div class="top-section">
+        <input class="searchbar" type="text" placeholder="Search">
+        <input class="add-user-btn btn-primary" type="submit" value="Add user" id="addUserBtn">
+    </div>
+    <!-- TABLE -->
+    <div class="table-div">
+        <table class="table">
+            <thead>
+                <th class="table-cell avatar-column">Avatar</th>
+                <th class="table-cell name-column">Client name</th>
+                <th class="table-cell">Email</th>
+                <th class="table-cell">Manager</th>
+                <th class="table-cell">Payment</th>
+                <th class="table-cell">Options</th>
+            </thead>
+            <tbody>
+            {% for row in clients %}
+                <tr>
+                    <td class="table-cell avatar-column"><img style="width: 50px;" src="{{ asset(row.avatar) }}" alt="{{ row.getClientName() ~ " avatar" }}"></td>
+                    <td class="table-cell name-column">{{ row.getClientName() }}</td>
+                    <td class="table-cell">{{ row.email }}</td>
+                    <td class="table-cell">{{ row.manager }}</td>
+                    <td class="table-cell">{{ row.getPaymentMethod() }}</td>
+                    <td class="table-cell options-column">
+                        <div class="options-container">
+                            <a href="{{ path("dashboard_client_show", {id: row.id}) }}"><span class="view-option options-icon"></span></a>
+                            <span class="edit-option options-icon"></span>
+                            <a href="{{ path("dashboard_delete", {route: "client", id:row.id}) }}"><span class="delete-option options-icon"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <th>Avatar</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Manager</th>
-            <th>Payment</th>
-            <th>Options</th>
-        </thead>
-        <tbody>
-        {% for row in clients %}
-            <tr>
-                <td><img style="width: 50px;" src="{{ row.avatar }}" alt="{{ row.getClientName() ~ " avatar" }}"></td>
-                <td>{{ row.getClientName() }}</td>
-                <td>{{ row.email }}</td>
-                <td>{{ row.manager }}</td>
-                <td>{{ row.getPaymentMethod() }}</td>
-                <td><a href="{{ path("dashboard_client_show", {id: row.id}) }}">View</a></td>
-                <td><a href="{{ path("dashboard_delete", {route: "client", id:row.id}) }}">Delete</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-{% endblock %}
+{% endblock %}  
