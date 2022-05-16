@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 12, 2022 at 11:08 PM
+-- Generation Time: May 16, 2022 at 06:29 PM
 -- Server version: 5.7.36
 -- PHP Version: 8.1.0
 
@@ -68,7 +68,8 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20220510084901', '2022-05-10 10:53:39', 172);
+('DoctrineMigrations\\Version20220510084901', '2022-05-10 10:53:39', 172),
+('DoctrineMigrations\\Version20220512231038', '2022-05-13 01:11:17', 147);
 
 -- --------------------------------------------------------
 
@@ -151,8 +152,6 @@ INSERT INTO `tasks` (`id`, `description`, `date`, `time`, `developer_id`, `clien
 (59, 'Symfony new', '2022-05-07', '05:15:00', 6, 5),
 (60, 'Modify project', '2022-05-08', '03:20:00', 6, 5),
 (61, 'Deploy', '2022-05-09', '06:00:00', 6, 5),
-(62, 'Create HTML', '2022-04-28', '00:30:00', 1, 6),
-(63, 'Create CSS', '2022-04-29', '01:35:00', 1, 6),
 (64, 'Create JS', '2022-04-30', '03:45:00', 1, 6),
 (65, 'Modify JS', '2022-05-01', '02:20:00', 1, 6),
 (66, 'Frontend presentation', '2022-05-02', '00:59:00', 1, 6),
@@ -186,7 +185,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `email` varchar(180) COLLATE utf8mb4_bin NOT NULL,
   `roles` json NOT NULL,
   `avatar_path` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `avatar_alt` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
@@ -195,7 +194,7 @@ CREATE TABLE `users` (
   `city` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `country` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `bank_acc` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL
+  `bank_acc` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
@@ -203,22 +202,21 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `roles`, `avatar_path`, `avatar_alt`, `status`, `street`, `city`, `country`, `password`, `bank_acc`) VALUES
-(1, 'Loreta', 'Ipsum', 'loretaipsum@blogtalkradio.com', '[\"ROLE_ADMIN\"]', './images/profile-images/profile-woman.png', 'Profile image of Loreta Ipsum', 1, 'Muir', 'Leskovac', 'Serbia', '$2y$13$9LMTfpyag6yfJp2jg9Qq0etSeJRAzYzKcNoP6ThtRsgc6G9BGtdhK', ''),
-(2, 'Waverly', 'Rounds', 'wrounds1@twitpic.com', '[\"ROLE_ADMIN\"]', './images/profile-images/profile-guy-one.png', 'Profile image of Waverly Rounds', 1, 'Dayton', 'Banatski Dvor', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(3, 'Hilde', 'Phipson', 'hphipson2@tmall.com', '[\"ROLE_ADMIN\"]', './images/profile-images/profile-guy-two.png', 'Profile image of Hilde Phipson', 1, 'Steensland', 'Varna', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(4, 'Elisabet', 'Halloway', 'ehalloway3@epa.gov', '[\"ROLE_DEV\"]', './images/profile-images/christie-campbell.jpg', 'Profile image of Elisabet Halloway', 1, 'Moulton', 'Platičevo', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(5, 'Ailyn', 'Prine', 'aprine4@diigo.com', '[\"ROLE_DEV\"]', './images/profile-images/jurica-koletic.jpg', 'Profile image of Ailyn Prine', 1, 'Village', 'Farkaždin', 'Serbia', '$2y$13$P9B8L84vEhnzrbB637Cg/.boIvK8VJ6YYaIzjB1XF.1nN91ynFgCa', ''),
-(6, 'Reyna', 'Skottle', 'sskottle5@is.gd', '[\"ROLE_DEV\"]', './images/profile-images/jake-nackos.jpg', 'Profile image of Reyna Skottle', 1, 'Melby', 'Svrljig', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(7, 'Jill', 'Gosz', 'jgosz6@cnbc.com', '[\"ROLE_DEV\"]', './images/profile-images/stephanie-liverani.jpg', 'Profile image of Jill Gosz', 1, 'Prairie Rose', 'Varna', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(8, 'Ronnie', 'Moxley', 'rmoxley7@shutterfly.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-guy-five.png', 'Profile image of Ronnie Moxley', 1, 'Graedel', 'Klenak', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(9, 'Cris', 'Davley', 'cdavley8@blogspot.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-guy-four.png', 'Profile image of Chris Davley', 1, 'Cody', 'Rekovac', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(10, 'Abdel', 'Klarzynski', 'aklarzynski9@un.org', '[\"ROLE_DEV\"]', './images/profile-images/joseph-gonzalez.jpg', 'Profile image of Abdel Klarzynski', 1, 'Schiller', 'Ruma', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(11, 'Kele', 'Jump', 'kjumpa@bandcamp.com', '[\"ROLE_DEV\"]', './images/profile-images/julian-wan.jpg', 'Profile image of Kele Jump', 1, 'Bultman', 'Beška', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(12, 'Nicholas', 'Pountney', 'ppountneyb@paypal.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-guy-three.png', 'Profile image of Nicholas Pountney', 1, 'Garrison', 'Debeljača', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(13, 'Hedwiga', 'Matherson', 'hmathersonc@etsy.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-woman.png', 'Profile image of Hedwiga Matherson', 1, 'Pleasure', 'Pavliš', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(14, 'Jaye', 'Bugdale', 'jbugdaled@alibaba.com', '[\"ROLE_DEV\"]', './images/profile-images/stefan-stevic.jpg', 'Profile image of Jaye Bugdale', 1, 'Parkside', 'Niš', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(15, 'Raina', 'Livingston', 'rlivingstone@ucla.edu', '[\"ROLE_DEV\"]', './images/profile-images/christie-campbell.jpg', 'Profile image of Raina Livingston', 1, 'Scott', 'Savski Venac', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', ''),
-(16, 'Vicky', 'Hladynets', 'cpopplestonf@paypal.com', '[\"ROLE_DEV\"]', './images/profile-images/vicky-hladynets.jpg', 'Profile image of Vicky Hladynets', 0, 'Milwaukee', 'Toba', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '');
+(1, 'Loreta', 'Ipsum', 'loretaipsum@blogtalkradio.com', '[\"ROLE_ADMIN\"]', './images/profile-images/profile-woman.png', 'Profile image of Loreta Ipsum', 1, 'Muir', 'Leskovac', 'Serbia', '$2y$13$9LMTfpyag6yfJp2jg9Qq0etSeJRAzYzKcNoP6ThtRsgc6G9BGtdhK', '1111222233334444'),
+(3, 'Hilde', 'Phipson', 'hphipson2@tmall.com', '[\"ROLE_ADMIN\"]', './images/profile-images/profile-guy-two.png', 'Profile image of Hilde Phipson', 1, 'Steensland', 'Varna', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(4, 'Elisabet', 'Halloway', 'ehalloway3@epa.gov', '[\"ROLE_DEV\"]', './images/profile-images/christie-campbell.jpg', 'Profile image of Elisabet Halloway', 1, 'Moulton', 'Platičevo', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(5, 'Ailyn', 'Prine', 'aprine4@diigo.com', '[\"ROLE_DEV\"]', './images/profile-images/jurica-koletic.jpg', 'Profile image of Ailyn Prine', 1, 'Village', 'Farkaždin', 'Serbia', '$2y$13$P9B8L84vEhnzrbB637Cg/.boIvK8VJ6YYaIzjB1XF.1nN91ynFgCa', '1111222233334444'),
+(6, 'Reyna', 'Skottle', 'sskottle5@is.gd', '[\"ROLE_DEV\"]', './images/profile-images/jake-nackos.jpg', 'Profile image of Reyna Skottle', 1, 'Melby', 'Svrljig', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(7, 'Jill', 'Gosz', 'jgosz6@cnbc.com', '[\"ROLE_DEV\"]', './images/profile-images/stephanie-liverani.jpg', 'Profile image of Jill Gosz', 1, 'Prairie Rose', 'Varna', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(8, 'Ronnie', 'Moxley', 'rmoxley7@shutterfly.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-guy-five.png', 'Profile image of Ronnie Moxley', 1, 'Graedel', 'Klenak', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(9, 'Cris', 'Davley', 'cdavley8@blogspot.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-guy-four.png', 'Profile image of Chris Davley', 1, 'Cody', 'Rekovac', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(10, 'Abdel', 'Klarzynski', 'aklarzynski9@un.org', '[\"ROLE_DEV\"]', './images/profile-images/joseph-gonzalez.jpg', 'Profile image of Abdel Klarzynski', 1, 'Schiller', 'Ruma', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(11, 'Kele', 'Jump', 'kjumpa@bandcamp.com', '[\"ROLE_DEV\"]', './images/profile-images/julian-wan.jpg', 'Profile image of Kele Jump', 1, 'Bultman', 'Beška', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(12, 'Nicholas', 'Pountney', 'ppountneyb@paypal.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-guy-three.png', 'Profile image of Nicholas Pountney', 1, 'Garrison', 'Debeljača', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(13, 'Hedwiga', 'Matherson', 'hmathersonc@etsy.com', '[\"ROLE_DEV\"]', './images/profile-images/profile-woman.png', 'Profile image of Hedwiga Matherson', 1, 'Pleasure', 'Pavliš', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(14, 'Jaye', 'Bugdale', 'jbugdaled@alibaba.com', '[\"ROLE_DEV\"]', './images/profile-images/stefan-stevic.jpg', 'Profile image of Jaye Bugdale', 1, 'Parkside', 'Niš', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(15, 'Raina', 'Livingston', 'rlivingstone@ucla.edu', '[\"ROLE_DEV\"]', './images/profile-images/christie-campbell.jpg', 'Profile image of Raina Livingston', 1, 'Scott', 'Savski Venac', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444'),
+(16, 'Vicky', 'Hladynets', 'cpopplestonf@paypal.com', '[\"ROLE_DEV\"]', './images/profile-images/vicky-hladynets.jpg', 'Profile image of Vicky Hladynets', 0, 'Milwaukee', 'Toba', 'Serbia', '$2y$10$DcnszsYtMjVOebNkvj8CLO48LINb7fZWuZeX2FB7TDOVatF/bK10S', '1111222233334444');
 
 --
 -- Indexes for dumped tables
@@ -241,14 +239,15 @@ ALTER TABLE `doctrine_migration_versions`
 --
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `developer_id` (`developer_id`),
-  ADD KEY `client_id` (`client_id`);
+  ADD KEY `IDX_5058659764DD9267` (`developer_id`),
+  ADD KEY `IDX_5058659719EB6921` (`client_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_1483A5E9E7927C74` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -258,19 +257,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
