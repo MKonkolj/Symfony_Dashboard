@@ -1,10 +1,30 @@
-<div>
-    <a href="{{ path('dashboard_logout') }}">Logout</a>
-    {% if is_granted("ROLE_ADMIN") %}
-        <ul>
+<div class="sidebar">
+    <img src="../images/universal-logo-small.png" alt="universal logo">
+    <ul class="sidebar-menu" id="sidebarMenu">
+        {% if is_granted("ROLE_ADMIN") %}
             <li><a href="{{ path('dashboard_developers') }}">Developers</a></li>
             <li><a href="{{ path('dashboard_clients') }}">Clients</a></li>
+        {% endif %}
             <li><a href="{{ path('dashboard_my-profile') }}">My Profile</a></li>
-        </ul>
-    {% endif %}
+            <li><a href="{{ path('dashboard_logout') }}">Logout</a></li>
+    </ul>
 </div>
+
+
+{# <!-- CONTAINER ZA SIDEBAR I MAIN -->
+        <div class="grid-2-1">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <img src="img/universal-logo.png" alt="universal logo">
+                <ul class="sidebar-menu" id="sidebarMenu">
+                    <li class="current"><a href="./index.html">Users</a></li>
+                    <li><a href="./developers.html">Developers</a></li>
+                    <li><a href="./clients.html">Clients</a></li>
+                    <li><a href="./my-profile.html">My profile</a></li>
+                </ul>
+                <div class="burger" id="burger">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                    <div class="bar bar3"></div>
+                </div>
+            </div> #}

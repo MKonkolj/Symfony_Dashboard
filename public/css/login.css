@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans';
+    font-weight: 400;
+}
+
+html, body {
+    width: 100%;
+}
+
+/* page specific */
+
+body {
+    background: url("../images/login-bg.png") no-repeat center fixed;
+}
+
+main {
+    height: 100%;
+    display: grid;
+    place-items: center center;
+}
+
+.grid-center {
+    display: grid;
+    place-items: center;
+    height: 100vh
+}
+
+.container {
+    background: rgba(255, 255, 255, .8);
+    border-radius: 30px;
+    width: min(90%, 650px);
+    padding: 40px min(10vw, 100px) 40px;
+    height: min(90vh, 650px);
+}
+
+.logo {
+    padding-inline: 25%;
+    margin-inline: auto;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.container h1 {
+    font-weight: 700;
+    font-size: 1.875rem;
+    text-align: left;
+    margin-block: 46px 60px;
+}
+
+.container h1 span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: #4A4D51;
+    margin-top: 30px;
+}
+
+.form {
+    display: grid;
+    gap: 30px;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    padding: 7px 70px 7px 16px;
+    border: none;
+    border-radius: 6px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.show-password-eye {
+    display: block;
+    cursor: pointer;
+    background: url(../icons/hidden-eye.svg) no-repeat;
+    width: 22px;
+    height: 19px;
+    position: absolute;
+    right: 30px;
+    top: 9px;
+}
+
+.show-password-eye.hidden-eye {
+    background-color: tomato;
+}
+
+button {
+    background: var(--blue-grad);
+    color: var(--white);
+    font-size: 1rem;
+    line-height: 1.21875rem;
+    padding: 9px 0;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 16px;
+    color: var(--blue);
+}

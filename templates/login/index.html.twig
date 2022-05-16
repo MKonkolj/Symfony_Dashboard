@@ -1,24 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Login{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="../css/login.css">
+{% endblock %}
 
-{% block body %}
-<h3>Login if your dare 🥞</h3>
-
-<p>loretaipsum@blogtalkradio.com<br>secret</p>
-
-    <form method="POST">
-        {% if error %}
-            {{ error.messageKey }}
-        {% endif %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}">
-        <input type="text" name="_username" placeholder="email">
-        <input type="text" name="_password" placeholder="password">
-        <button type="submit" name="submit">Login</button>
-    </form>
-
-<a href="{{ path("dashboard_forgotten-password") }}">Forgot password?</a>
-<br>
-<a href="{{ path("dashboard_register") }}">Register</a>
-
+{% block loginBody %}
+<main>
+    <div class="grid-center">
+        <div class="container">
+            <div class="logo"><img src="../images/universal-logo-big.png" alt="dashboard logo"></div>
+            <h1>Login</h1>
+            <form class="form" method="POST">
+                {% if error %}
+                    {{ error.messageKey }}
+                {% endif %}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}">
+                <input type="text" name="_username" placeholder="email">
+                <input type="text" name="_password" placeholder="password">
+                <button type="submit" name="submit">Login</button>
+            </form>
+            <a href="{{ path("dashboard_forgotten-password") }}">Forgot password?</a>
+            <br>
+            <a href="{{ path("dashboard_register") }}">Register</a>
+        </div>
+    </div>
+</main>
 {% endblock %}
