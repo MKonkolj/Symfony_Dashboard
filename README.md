@@ -1,5 +1,6 @@
 1. Connect to MySQL databe "universal_db" via env file
 2. Run symfony server
+3. Login with any email from the db, pass for all is "secret"
 
 Šta još fali:
 - edit za taskove
