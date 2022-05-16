@@ -7,7 +7,7 @@
     <div class="profile-hours-container grid-2-1">
         <!-- PROFILE SIDE -->
         <div class="profile-container">
-            <span class="edit-profile edit-option options-icon"></span>
+            <span class="edit-profile edit-option options-icon" id="openEditUserModalBtn"></span>
             <img class="profile-avatar" src="{{ asset("." ~ developer.getAvatarPath()) }}" alt="{{ developer.getAvatarAlt() }}">
             <p class="profile-title">{{ [developer.getFirstName(), developer.getLastName()] | join(" ") }}</p>
             <div class="profile-info">
@@ -30,10 +30,15 @@
                         🔴 Inactive
                     {% endif %}
                 </span></p>
-                <a class="insert-hours-btn btn-primary">Insert hours</a>
             </div>
         </div>
         <!-- TABLE SIDE -->
         {{ include("includes/task-table.html.twig") }}
     </div>
+    <div class="black-alpha fixed-center" id="blackAlpha"></div>
+{% include "modals/edit-user.html.twig" %}
+{% endblock %}
+
+{% block script %}
+<script src="{{ asset("js/modals.js") }}"></script>
 {% endblock %}

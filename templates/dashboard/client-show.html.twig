@@ -19,5 +19,10 @@
         <!-- TABLE SIDE -->
         {{ include("includes/task-table.html.twig") }}
     </div>
+    <div class="black-alpha fixed-center" id="blackAlpha"></div>
 {% include "modals/edit-client.html.twig" %}
+{% endblock %}
+
+{% block script %}
+<script src="{{ asset("js/modals.js") }}"></script>
 {% endblock %}

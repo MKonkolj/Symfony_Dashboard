@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,6 +33,10 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your email'
+                ]),
+                new UniqueEntity([
+                    'fields' => 'email',
+                    'message' => 'You already have an account with this email.'
                 ])
             ]])
             ->add('street', TextType::class, ['required' => true, 'constraints' => [
@@ -52,6 +57,11 @@ class RegistrationFormType extends AbstractType
             ->add('bank_acc', TextType::class, ['required' => true, 'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your bank account'
+                ]),
+                new Length([
+                    'min' => 16,
+                    'max' => 16,
+                    'exactMessage' => 'The account number must be 16 digits long.'
                 ])
             ]])
             ->add('status', CheckboxType::class, [
@@ -69,6 +79,7 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'required' => false,
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [

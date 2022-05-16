@@ -52,7 +52,7 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/developer/{id}', name: 'developer_show')]
-    public function developerShow($id): Response
+    public function developerShow($id, Request $request): Response
     {        
         // Redirect user if not Admin
         if(!$this->isGranted('ROLE_ADMIN')) {
@@ -67,9 +67,27 @@ class DashboardController extends AbstractController
         $taskRepo = $this->em->getRepository(Task::class);
         $tasks = $taskRepo->findDeveloperTasks($id);
 
+        // generate edit form
+        $form = $this->createForm(RegistrationFormType::class, $developer);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $developer = $form->getData();
+
+            // proveriti stari pass sa isValid()
+            // ako je tačan uneti novi password iz drugog inputa
+            // hashovati novi pass pre unosa u db
+
+            $developerRepo->add($developer);
+
+            return $this->redirectToRoute("dashboard_developer_show", ["id" => $id]);
+        }
+
         return $this->render('dashboard/developer-show.html.twig', [
             "developer" => $developer,
-            "tasks" => $tasks
+            "tasks" => $tasks,
+            "form" => $form->createView()
         ]);
     }
 
@@ -144,16 +162,6 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/client/edit/{id}', name: 'edit-client')]
-    public function editClient($id): Response
-    {
-        // get client by id
-        $clientRepo = $this->em->getRepository(Client::class);
-        $client = $clientRepo->find($id);
-
-        return $this->redirectToRoute("dashboard_client_show", ["id" => $id]);
-    }
-
     /////////////// MY PROFILE routes //////////////////
     #[Route('/my-profile', name: 'my-profile')]
     public function myProfile(Security $security, Request $request): Response
@@ -186,11 +194,16 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
+        // generate edit user form
+        $editUserForm = $this->createForm(RegistrationFormType::class, $profile, [
+            'action' => $this->generateUrl('dashboard_developer_show', ["id" => $activeUserId])
+        ]);
 
         return $this->render('dashboard/my-profile.html.twig', [
             "profile" => $profile,
             "tasks" => $tasks,
-            "add_task_form" => $form->createView()
+            "add_task_form" => $form->createView(),
+            "form" => $editUserForm->createView()
         ]);
     }
 

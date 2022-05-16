@@ -1,25 +1,20 @@
-<div class="black-alpha fixed-center" id="blackAlpha"></div>
 <!-- EDIT USER MODAL -->
     <div class="add-user-modal" id="editUserModal">
-        {# {{ form_start(add_user_form) }}
+        {{ form_start(form) }}
             <p class="modal-title">New User</p>
             <img class="add-user-image" src="" alt="Add image">
-            {{ form_row(add_user_form.first_name) }}
-            {{ form_row(add_user_form.last_name) }}
-            {{ form_row(add_user_form.email) }}
-            {{ form_row(add_user_form.plainPassword, {label: 'Password'}) }}
-            {{ form_row(add_user_form.roles, {label: "Role"}) }}
-            {{ form_row(add_user_form.street) }}
-            {{ form_row(add_user_form.city) }}
-            {{ form_row(add_user_form.country) }}
-            {{ form_row(add_user_form.bank_acc) }}
-            {{ form_row(add_user_form.status, {label: 'Active'}) }}
+            {{ form_row(form.first_name) }}
+            {{ form_row(form.last_name) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword, {label: 'Password'}) }}
+            {{ form_row(form.roles, {label: "Role"}) }}
+            {{ form_row(form.street) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.country) }}
+            {{ form_row(form.bank_acc) }}
+            {{ form_row(form.status, {label: 'Active'}) }}
 
-            <button class="btn-primary" name="submit" type="submit">Add user</button>
-        {{ form_end(add_user_form) }} #}
+            <button class="btn-primary" name="submit" type="submit">Save changes</button>
+        {{ form_end(form) }}
     </div>
 </div>
-
-{# {% block script %}
-<script src="{{ asset("js/modals.js") }}"></script>
-{% endblock %} #}

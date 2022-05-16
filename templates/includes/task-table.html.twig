@@ -28,7 +28,6 @@
                     <td class="profile-table-cell">{{ task.date|date("m/d/Y") }}</td>
                     <td class="profile-table-cell">{{ task.time|date("H:I") }}</td>
                     <td class="profile-table-cell profile-hours-option">
-                        <span class="edit-option options-icon"></span>
                         <a href="{{ path("dashboard_delete", {route: "task", id:task.id}) }}"><span class="delete-option options-icon"></span></a>
                     </td>
                 </tr>
