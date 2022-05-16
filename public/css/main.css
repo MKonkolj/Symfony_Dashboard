@@ -518,3 +518,71 @@ a {
 .edit-user-modal-btns .btn-primary {
     padding-inline: 33px;
 }
+
+/* ADD TASK MODAL */
+
+.time-modal {
+    display: none;
+    width: 800px;
+    min-height: 400px;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 30px clamp(1.875rem, 0.7107843137254901rem + 4.901960784313726vw, 3.75rem);
+    text-align: center;
+}
+
+.time-modal.show {
+    display: block;
+}
+
+.time-modal-container {
+    column-gap: 60px;
+    row-gap: 40px;
+}
+
+.desc-time {
+    justify-content: start;
+}
+
+.desc-time > *{
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.desc-time textarea {
+    resize: none;
+    margin-bottom: 20px;
+    border: 1px solid var(--light-grey);
+    border-radius: 4px;
+    padding: 5px 20px;
+}
+
+.date-picker {
+    text-align: left;
+    padding-left: 90px;
+}
+
+.date-picker img {
+    max-width: 150px;
+    display: block;
+    padding-top: 20px;
+}
+
+.time-modal-number {
+    display: inline;
+    width: 60px;
+    border: 1px solid var(--light-grey);
+    border-radius: 4px;
+    padding: 5px 5px 5px 10px;
+    font-size: 0.875rem;
+}
+
+.time-modal-btns {
+    margin-top: 40px;
+}
+
+.time-modal-btns .btn-white {
+    margin-inline: 40px 0;
+}
