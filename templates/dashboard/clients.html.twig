@@ -3,17 +3,10 @@
 {% block title %}Clients{% endblock %}
 
 {% block body %}
-
-    {# {{ form_start(add_client_form) }}
-        {{ form_row(add_client_form.client_name, {label: 'Client name'}) }}
-        {{ form_row(add_client_form.email) }}
-        {{ form_row(add_client_form.manager) }}
-        {{ form_row(add_client_form.payment_method) }}
-    {{ form_end(add_client_form) }} #}
     <!-- TOPBAR -->
     <div class="top-section">
         <input class="searchbar" type="text" placeholder="Search">
-        <input class="add-user-btn btn-primary" type="submit" value="Add user" id="addUserBtn">
+        <input class="add-user-btn btn-primary" type="submit" value="Add client" id="openAddClientModalBtn">
     </div>
     <!-- TABLE -->
     <div class="table-div">
@@ -46,5 +39,5 @@
             </tbody>
         </table>
     </div>
-
+{% include "modals/add-client.html.twig" %}
 {% endblock %}  

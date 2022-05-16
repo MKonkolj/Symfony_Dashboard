@@ -4,11 +4,10 @@
 
 {% block body %}
 
-
     <!-- TOPBAR -->
     <div class="top-section">
         <input class="searchbar" type="text" placeholder="Search">
-        <input class="add-user-btn btn-primary" type="submit" value="Add user">
+        <input class="add-user-btn btn-primary" type="submit" value="Add user" id="openAddUserModalBtn">
     </div>
     <!-- TABLE -->
     <div class="table-div">
@@ -50,19 +49,5 @@
             </tbody>
         </table>
     </div>
-
-    {# {{ form_start(add_user_form) }}
-        {{ form_row(add_user_form.first_name) }}
-        {{ form_row(add_user_form.last_name) }}
-        {{ form_row(add_user_form.email) }}
-        {{ form_row(add_user_form.plainPassword, {label: 'Password'}) }}
-        {{ form_row(add_user_form.roles, {label: "Role"}) }}
-        {{ form_row(add_user_form.street) }}
-        {{ form_row(add_user_form.city) }}
-        {{ form_row(add_user_form.country) }}
-        {{ form_row(add_user_form.bank_acc) }}
-        {{ form_row(add_user_form.status, {label: 'Active'}) }}
-
-        <button type="submit" class="btn">Add user</button>
-    {{ form_end(add_user_form) }} #}
+{% include "modals/add-developer.html.twig" %}
 {% endblock %}

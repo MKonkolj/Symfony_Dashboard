@@ -347,19 +347,6 @@ a {
     background-image: url(../icons/invoice-icon.png);
 }
 
-/* BLACK ALPHA */
-
-.black-alpha {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.25);
-    display: none;
-}
-
-.black-alpha.show {
-    display: block;
-}
-
 /* TOPBAR */
 .top-section {
     height: 100px;
@@ -412,4 +399,122 @@ a {
     position: absolute;
     top: calc(50% + 100px);
     left: 300px;
+}
+
+/********* MODALS ***************/
+
+.add-user-modal input,
+.add-user-modal select {
+    padding: 5px 20px;
+    border: 1px solid var(--light-grey);
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.add-user-modal input::placeholder,
+.add-user-modal select::placeholder {
+    font-size: 0.875rem;
+}
+
+.add-user-modal form div {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.add-user-modal form label {
+    text-align: right;
+}
+
+/* BLACK ALPHA */
+
+.black-alpha {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    display: none;
+}
+
+.black-alpha.show {
+    display: block;
+}
+
+/* ADD USER MODAL / EDIT USER MODAL */
+
+.add-user-modal,
+.edit-user-modal{
+    width: clamp(22.5rem, 7.95918367346939rem + 61.22448979591836vw, 30rem);
+    height: 100vh;
+    border-radius: 20px 0px 0px 20px;
+    background: var(--white);
+    padding: 20px clamp(2.5rem, 0.07653061224489832rem + 10.20408163265306vw, 3.75rem);
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow: auto;
+    box-shadow: -2px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    transform: translateX(480px);
+    transition: transform 300ms ease-in;
+}
+
+.add-user-modal.show,
+.edit-user-modal.show {
+    transform: translateX(0);
+}
+
+.add-user-modal form,
+.edit-user-modal form {
+    display: grid;
+    gap: 20px;
+    width: 100%;   
+}
+
+.modal-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 1.267156862745098rem + 0.9803921568627451vw, 1.875rem);
+}
+
+.add-user-image {
+    display: block;
+    margin-inline: auto; 
+    border: 1px solid var(--light-grey);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.edit-user-image {
+    margin-inline: auto;
+}
+
+.modal-right-input {
+    padding: 5px 20px;
+    border: 1px solid var(--light-grey);
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.modal-right-input::placeholder {
+    font-size: 0.875rem;
+}
+
+.add-user-modal-btns,
+.edit-user-modal-btns {
+    margin-top: 50px;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.edit-user-modal-btns .btn-primary {
+    padding-inline: 33px;
 }

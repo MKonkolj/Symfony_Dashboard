@@ -27,7 +27,6 @@ class ClientFormType extends AbstractType
                     'Wire transfer' => "wireTransfer",
                 ],
             ])
-            ->add('submit', SubmitType::class)
         ;
     }
 

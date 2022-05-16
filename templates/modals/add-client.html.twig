@@ -1,0 +1,19 @@
+<div class="black-alpha fixed-center" id="blackAlpha"></div>
+<!-- ADD CLIENT MODAL -->
+    <div class="add-user-modal" id="addClientModal">
+        {{ form_start(add_client_form) }}
+            <p class="modal-title">New Client</p>
+            <img class="add-user-image" src="" alt="Add image">
+            {{ form_row(add_client_form.client_name, {label: 'Client name'}) }}
+            {{ form_row(add_client_form.email) }}
+            {{ form_row(add_client_form.manager) }}
+            {{ form_row(add_client_form.payment_method) }}
+
+            <button class="btn-primary" name="submit" type="submit">Add client</button>
+        {{ form_end(add_client_form) }}
+    </div>
+</div>
+
+{% block script %}
+<script src="{{ asset("js/modals.js") }}"></script>
+{% endblock %}
