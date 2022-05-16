@@ -6,6 +6,7 @@
 
 Šta još fali:
 - edit za taskove
+- filteri
 - bolja validacija formi
 - mogućnost izmene passworda usera u editu
 - CSS stilovi za add task formu
