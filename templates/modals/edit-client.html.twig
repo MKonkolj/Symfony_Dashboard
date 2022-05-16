@@ -1,0 +1,19 @@
+<div class="black-alpha fixed-center" id="blackAlpha"></div>
+<!-- EDIT USER MODAL -->
+    <div class="add-user-modal" id="editClientModal">
+        {{ form_start(form) }}
+            <p class="modal-title">Edit User</p>
+            <img class="add-user-image" src="" alt="Add image">
+            {{ form_row(form.client_name) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.manager) }}
+            {{ form_row(form.payment_method) }}
+            
+            <button class="btn-primary" name="submit" type="submit">Save changes</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% block script %}
+<script src="{{ asset("js/modals.js") }}"></script>
+{% endblock %}

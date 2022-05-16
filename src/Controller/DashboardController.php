@@ -110,7 +110,7 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/client/{id}', name: 'client_show')]
-    public function clientShow($id): Response
+    public function clientShow($id, Request $request): Response
     {        
         // Redirect user if not Admin
         if(!$this->isGranted('ROLE_ADMIN')) {
@@ -125,10 +125,33 @@ class DashboardController extends AbstractController
         $taskRepo = $this->em->getRepository(Task::class);
         $tasks = $taskRepo->findClientTasks($id);
 
+        // generate form to edit client and handle request
+        $form = $this->createForm(ClientFormType::class, $client);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $client = $form->getData();
+            $clientRepo->add($client);
+
+            return $this->redirectToRoute("dashboard_client_show", ["id" => $id]);
+        }
+
         return $this->render('dashboard/client-show.html.twig', [
             "client" => $client,
-            "tasks" => $tasks
+            "tasks" => $tasks,
+            "form" => $form->createView()
         ]);
+    }
+
+    #[Route('/client/edit/{id}', name: 'edit-client')]
+    public function editClient($id): Response
+    {
+        // get client by id
+        $clientRepo = $this->em->getRepository(Client::class);
+        $client = $clientRepo->find($id);
+
+        return $this->redirectToRoute("dashboard_client_show", ["id" => $id]);
     }
 
     /////////////// MY PROFILE routes //////////////////

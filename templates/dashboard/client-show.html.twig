@@ -6,7 +6,7 @@
     <div class="profile-hours-container grid-2-1">
         <!-- PROFILE SIDE -->
         <div class="profile-container">
-            <span class="edit-profile edit-option options-icon"></span>
+            <span class="edit-profile edit-option options-icon" id="openEditClientModalBtn"></span>
             <img class="profile-avatar" src="{{ client.avatar }}" alt="{{ client.getClientName() ~ " avatar image" }}">
             <p class="profile-title">{{ client.getClientName() }}</p>
             <div class="profile-info">
@@ -19,4 +19,5 @@
         <!-- TABLE SIDE -->
         {{ include("includes/task-table.html.twig") }}
     </div>
+{% include "modals/edit-client.html.twig" %}
 {% endblock %}
