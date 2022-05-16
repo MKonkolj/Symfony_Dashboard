@@ -50,7 +50,7 @@ class TaskRepository extends ServiceEntityRepository
     public function findDeveloperTasks($developer_id): array
     {
         return $this->createQueryBuilder('t')
-            ->select('t.description', 't.date', 't.time', 'c.client_name')
+            ->select('t.id', 't.description', 't.date', 't.time', 'c.client_name')
             ->leftJoin('t.client', 'c')
             ->andWhere('t.developer = :developer')
             ->setParameter('developer', $developer_id)
@@ -62,7 +62,7 @@ class TaskRepository extends ServiceEntityRepository
     public function findClientTasks($client_id): array
     {
         return $this->createQueryBuilder('t')
-            ->select('t.description', 't.date', 't.time', 'u.first_name', 'u.last_name')
+            ->select('t.id', 't.description', 't.date', 't.time', 'u.first_name', 'u.last_name')
             ->leftJoin('t.developer', 'u')
             ->andWhere('t.developer = :client')
             ->setParameter('client', $client_id)

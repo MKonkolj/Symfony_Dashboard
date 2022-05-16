@@ -3,9 +3,20 @@
 {% block title %}Developers{% endblock %}
 
 {% block body %}
-
-    {{ dump(client) }}
-    {{ dump(tasks) }}
-    <h1>Show page</h1>
-
+    <div class="profile-hours-container grid-2-1">
+        <!-- PROFILE SIDE -->
+        <div class="profile-container">
+            <span class="edit-profile edit-option options-icon"></span>
+            <img class="profile-avatar" src="{{ client.avatar }}" alt="{{ client.getClientName() ~ " avatar image" }}">
+            <p class="profile-title">{{ client.getClientName() }}</p>
+            <div class="profile-info">
+                <p><strong>Email: </strong><span>{{ client.email }}</span></p>
+                <p><strong>Manager: </strong><span>{{ client.manager }}</span></p>
+                <p><strong>Payment method: </strong><span>{{ client.getPaymentMethod() }}</span></p>
+                <a class="insert-hours-btn btn-primary">Insert hours</a>
+            </div>
+        </div>
+        <!-- TABLE SIDE -->
+        {{ include("includes/task-table.html.twig") }}
+    </div>
 {% endblock %}

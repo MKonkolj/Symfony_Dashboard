@@ -3,7 +3,12 @@
     <table class="table profile-table">
         <thead>
             <tr>
-                <th>Client</th>
+                {% if client is defined %}
+                        <th>Developer</th>
+                    {% endif %}
+                    {% if developer is defined %}
+                        <th>Client</th>
+                    {% endif %}
                 <th>Description</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -13,13 +18,18 @@
         <tbody>
             {% for task in tasks %}
                 <tr>
-                    <td class="profile-table-cell">{{ task.client_name }}</td>
+                    {% if client is defined %}
+                        <td class="profile-table-cell">{{ [task.first_name, task.last_name] | join(" ") }}</td>
+                    {% endif %}
+                    {% if developer is defined %}
+                        <td class="profile-table-cell">{{ task.client_name }}</td>
+                    {% endif %}
                     <td class="profile-table-cell">{{ task.description }}</td>
                     <td class="profile-table-cell">{{ task.date|date("m/d/Y") }}</td>
                     <td class="profile-table-cell">{{ task.time|date("H:I") }}</td>
                     <td class="profile-table-cell profile-hours-option">
                         <span class="edit-option options-icon"></span>
-                        <span class="delete-option options-icon"></span>
+                        <a href="{{ path("dashboard_delete", {route: "task", id:task.id}) }}"><span class="delete-option options-icon"></span></a>
                     </td>
                 </tr>
             {% endfor %}
