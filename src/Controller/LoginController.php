@@ -22,6 +22,7 @@ class LoginController extends AbstractController
         ]);
     }
 
+    
     #[Route('/forgotten-password', name: 'forgotten-password')]
     public function forgottenPassword(): Response
     {

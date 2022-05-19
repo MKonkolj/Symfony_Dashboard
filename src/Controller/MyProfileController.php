@@ -22,6 +22,7 @@ class MyProfileController extends AbstractController
         $this->em = $em;
     }
 
+
     #[Route('/my-profile', name: 'my-profile')]
     public function myProfile(Security $security, Request $request): Response
     {   
@@ -33,6 +34,7 @@ class MyProfileController extends AbstractController
         $profileRepo = $this->em->getRepository(User::class);
         $profile = $profileRepo->find($activeUserId);
 
+
         // get users taks
         $tasksRepo = $this->em->getRepository(Task::class);
         $tasks = $tasksRepo->findDeveloperTasks($activeUserId);
@@ -40,6 +42,7 @@ class MyProfileController extends AbstractController
         // generate form for adding tasks
         $task = new Task();
         $form = $this->createForm(TaskFormType::class, $task);
+
 
         // handle add task request
         $form->handleRequest($request);
@@ -53,7 +56,9 @@ class MyProfileController extends AbstractController
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
+
         // generate edit user form
+        // handled by the developer controller
         $editUserForm = $this->createForm(RegistrationFormType::class, $profile, [
             'action' => $this->generateUrl('dashboard_developer_show', ["id" => $activeUserId])
         ]);
