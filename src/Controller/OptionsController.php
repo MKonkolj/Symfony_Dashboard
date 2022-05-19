@@ -19,9 +19,10 @@ class DashboardController extends AbstractController
         $this->em = $em;
     }
 
+
     /////////////// delete route //////////////////
-    #[Route('/{route}/delete/{id}', name: 'delete', methods: ["GET", "DELETE"])]
-    public function delete($route, $id): Response
+    #[Route('/{route}/delete/{id<\d+>}}', name: 'delete', methods: ["GET", "DELETE"])]
+    public function delete(string $route, int $id): Response
     {   
         // provera iz koje tabele brišemo podatke
         // i prilagođavanje ruta varijabile za kasnije preusmeravanje

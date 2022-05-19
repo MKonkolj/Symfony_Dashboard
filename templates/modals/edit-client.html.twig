@@ -2,7 +2,7 @@
     <div class="add-user-modal" id="editClientModal">
         {{ form_start(form) }}
             <p class="modal-title">Edit User</p>
-            <img class="add-user-image" src="" alt="Add image">
+            {{ form_row(form.avatar) }}
             {{ form_row(form.client_name) }}
             {{ form_row(form.email) }}
             {{ form_row(form.manager) }}

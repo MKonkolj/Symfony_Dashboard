@@ -20,6 +20,7 @@ class DeveloperController extends AbstractController
         $this->em = $em;
     }
 
+
     /////////////// DEVELOPER routes //////////////////
     #[Route('/developers', name: 'developers')]
     public function developers(): Response
@@ -47,14 +48,16 @@ class DeveloperController extends AbstractController
         ]);
     }
 
-    #[Route('/developer/{id}', name: 'developer_show')]
-    public function developerShow($id, Request $request): Response
+
+    #[Route('/developer/{id<\d+>}}', name: 'developer_show')]
+    public function developerShow(int $id, Request $request): Response
     {        
         // Redirect user if not Admin
         if(!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
+        
         // get developer by id
         $developerRepo = $this->em->getRepository(User::class);
         $developer = $developerRepo->find($id);
