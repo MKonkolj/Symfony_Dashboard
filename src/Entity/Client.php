@@ -14,13 +14,13 @@ class Client
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $client_name;
+    private string $client_name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $avatar;
+    private ?string $avatar;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $email;
@@ -39,7 +39,7 @@ class Client
         $this->tasks = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -56,7 +56,7 @@ class Client
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar(): string
     {
         return $this->avatar;
     }

@@ -16,33 +16,27 @@ use Symfony\Component\Security\Core\Security;
 #[Route("/dc7161be3dbf2250c8954e560cc35060", name: "dashboard_")]
 class MyProfileController extends AbstractController
 {
-    private $em;
-    public function __construct (EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
+    public function __construct (private EntityManagerInterface $em) {}
 
     #[Route('/my-profile', name: 'my-profile')]
     public function myProfile(Security $security, Request $request): Response
     {   
         // get id for the logged user
+        /**
+         * @var User $activeUser
+         */
         $activeUser = $security->getUser();
         $activeUserId = $activeUser->getId();
 
         // get logged user data
-        $profileRepo = $this->em->getRepository(User::class);
-        $profile = $profileRepo->find($activeUserId);
-
+        $profile = $this->em->getRepository(User::class)->find($activeUserId);
 
         // get users taks
-        $tasksRepo = $this->em->getRepository(Task::class);
-        $tasks = $tasksRepo->findDeveloperTasks($activeUserId);
+        $tasks = $this->em->getRepository(Task::class)->findDeveloperTasks($activeUserId);
 
         // generate form for adding tasks
         $task = new Task();
         $form = $this->createForm(TaskFormType::class, $task);
-
 
         // handle add task request
         $form->handleRequest($request);
@@ -56,7 +50,6 @@ class MyProfileController extends AbstractController
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
-
         // generate edit user form
         // handled by the developer controller
         $editUserForm = $this->createForm(RegistrationFormType::class, $profile, [
@@ -69,5 +62,5 @@ class MyProfileController extends AbstractController
             "add_task_form" => $form->createView(),
             "form" => $editUserForm->createView()
         ]);
-        }
+    }
 }

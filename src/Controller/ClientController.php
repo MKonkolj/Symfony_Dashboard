@@ -16,13 +16,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route("/dc7161be3dbf2250c8954e560cc35060", name: "dashboard_")]
 class ClientController extends AbstractController
 {
-    private $em;
-    public function __construct (EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    public function __construct (private EntityManagerInterface $em) {}
+    
 
-    /////////////// All clients list //////////////////
     #[Route('/clients', name: 'clients')]
     public function clients(Request $request, SluggerInterface $slugger): Response
     {   
@@ -31,15 +27,12 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
-
         // get all clients
-        $clientRepo = $this->em->getRepository(Client::class);
-        $clients = $clientRepo->findAll();
+        $clients = $this->em->getRepository(Client::class)->findAll();
 
         // generate add client form
         $newClient = new Client();
         $addForm = $this->createForm(ClientFormType::class, $newClient);
-
 
         // handle add client request
         $addForm->handleRequest($request);
@@ -66,9 +59,6 @@ class ClientController extends AbstractController
                 $newClient->setAvatar($newFilename);
             }
 
-            // set placeholder avatar path, to be changed later
-            // $newClient->setAvatar("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJWG5HUp6TKCEj4RDQ2q0PZ1vjp0YJ_LtXr1cXepxZmSeiB4qHHK0ofSaZj33H3WpKdgI&usqp=CAU");
-
             $this->em->persist($newClient);
             $this->em->flush();
 
@@ -81,7 +71,7 @@ class ClientController extends AbstractController
         ]);
     }
 
-    /////////////// One client list //////////////////
+
     #[Route('/client/{id<\d+>}}', name: 'client_show')]
     public function clientShow(int $id, Request $request): Response
     {        
@@ -89,15 +79,12 @@ class ClientController extends AbstractController
         if(!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('dashboard_my-profile');
         }
-
         
         // get client by id
-        $clientRepo = $this->em->getRepository(Client::class);
-        $client = $clientRepo->find($id);
+        $client = $this->em->getRepository(Client::class)->find($id);
         
         // get tasks by client id
-        $taskRepo = $this->em->getRepository(Task::class);
-        $tasks = $taskRepo->findClientTasks($id);
+        $tasks = $this->em->getRepository(Task::class)->findClientTasks($id);
 
         // generate form to edit client and handle request
         $form = $this->createForm(ClientFormType::class, $client);
@@ -106,7 +93,7 @@ class ClientController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $client = $form->getData();
-            $clientRepo->add($client);
+            $this->em->getRepository(Client::class)->add($client);
 
             return $this->redirectToRoute("dashboard_client_show", ["id" => $id]);
         }

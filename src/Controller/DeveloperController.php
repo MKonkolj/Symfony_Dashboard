@@ -14,14 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/dc7161be3dbf2250c8954e560cc35060", name: "dashboard_")]
 class DeveloperController extends AbstractController
 {
-    private $em;
-    public function __construct (EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    public function __construct (private EntityManagerInterface $em) {}
 
-
-    /////////////// DEVELOPER routes //////////////////
     #[Route('/developers', name: 'developers')]
     public function developers(): Response
     {
@@ -31,9 +25,7 @@ class DeveloperController extends AbstractController
         }
 
         // Get all users
-        $developersRepo = $this->em->getRepository(User::class);
-        $developers = $developersRepo->findAll();
-
+        $developers = $this->em->getRepository(User::class)->findAll();
         
         // create add developer form
         // this form is handled by RegistrationController
@@ -57,14 +49,11 @@ class DeveloperController extends AbstractController
             return $this->redirectToRoute('dashboard_my-profile');
         }
 
-        
         // get developer by id
-        $developerRepo = $this->em->getRepository(User::class);
-        $developer = $developerRepo->find($id);
+        $developer = $this->em->getRepository(User::class)->find($id);
 
         // get tasks by developer id
-        $taskRepo = $this->em->getRepository(Task::class);
-        $tasks = $taskRepo->findDeveloperTasks($id);
+        $tasks = $this->em->getRepository(Task::class)->findDeveloperTasks($id);
 
         // generate edit form
         $form = $this->createForm(RegistrationFormType::class, $developer);
@@ -78,7 +67,7 @@ class DeveloperController extends AbstractController
             // ako je tačan uneti novi password iz drugog inputa
             // hashovati novi pass pre unosa u db
 
-            $developerRepo->add($developer);
+            $this->em->getRepository(User::class)->add($developer);
 
             return $this->redirectToRoute("dashboard_developer_show", ["id" => $id]);
         }
