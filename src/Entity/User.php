@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $country;
 
     #[ORM\Column(type: 'boolean', length: 255)]
-    private string $status;
+    private bool $status;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $bank_acc;
