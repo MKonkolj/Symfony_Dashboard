@@ -18,43 +18,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private $email;
+    private string $email;
 
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private Array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    private $password;
+    private string $password;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $avatar_path;
+    private ?string $avatar_path;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $avatar_alt;
+    private ?string $avatar_alt;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $first_name;
+    private string $first_name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $last_name;
+    private string $last_name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $street;
+    private ?string $street;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $city;
+    private ?string $city;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $country;
+    private ?string $country;
 
     #[ORM\Column(type: 'boolean', length: 255)]
-    private $status;
+    private string $status;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $bank_acc;
+    private ?string $bank_acc;
 
     #[ORM\OneToMany(mappedBy: 'developer', targetEntity: Task::class)]
     private $tasks;
@@ -64,12 +64,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tasks = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -158,7 +158,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getFirstName(): ?string
+    public function getFirstName(): string
     {
         return $this->first_name;
     }
@@ -170,7 +170,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getLastName(): string
     {
         return $this->last_name;
     }
@@ -218,12 +218,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): bool
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(bool $status): self
     {
         $this->status = $status;
 
@@ -255,18 +255,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->tasks->contains($task)) {
             $this->tasks[] = $task;
             $task->setDeveloper($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTask(Task $task): self
-    {
-        if ($this->tasks->removeElement($task)) {
-            // set the owning side to null (unless already changed)
-            if ($task->getDeveloper() === $this) {
-                $task->setDeveloper(null);
-            }
         }
 
         return $this;

@@ -23,13 +23,13 @@ class Client
     private ?string $avatar;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    private string $email;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $manager;
+    private string $manager;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $payment_method;
+    private string $payment_method;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Task::class)]
     private $tasks;
@@ -44,7 +44,7 @@ class Client
         return $this->id;
     }
 
-    public function getClientName(): ?string
+    public function getClientName(): string
     {
         return $this->client_name;
     }
@@ -56,7 +56,7 @@ class Client
         return $this;
     }
 
-    public function getAvatar(): string
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
@@ -68,7 +68,7 @@ class Client
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -80,7 +80,7 @@ class Client
         return $this;
     }
 
-    public function getManager(): ?string
+    public function getManager(): string
     {
         return $this->manager;
     }
@@ -92,7 +92,7 @@ class Client
         return $this;
     }
 
-    public function getPaymentMethod(): ?string
+    public function getPaymentMethod(): string
     {
         return $this->payment_method;
     }

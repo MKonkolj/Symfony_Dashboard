@@ -12,10 +12,10 @@ class Task
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $description;
+    private string $description;
 
     #[ORM\Column(type: 'date')]
     private $date;
@@ -31,12 +31,12 @@ class Task
     #[ORM\JoinColumn(nullable: false)]
     private $client;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -72,12 +72,12 @@ class Task
         return $this;
     }
 
-    public function getDeveloper(): ?User
+    public function getDeveloper(): User
     {
         return $this->developer;
     }
 
-    public function setDeveloper(?User $developer): self
+    public function setDeveloper(User $developer): self
     {
         $this->developer = $developer;
 
