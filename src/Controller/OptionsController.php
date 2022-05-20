@@ -11,14 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route("/dc7161be3dbf2250c8954e560cc35060", name: "dashboard_")]
-class DashboardController extends AbstractController
+class OptionsController extends AbstractController
 {
     public function __construct (private EntityManagerInterface $em) {}
 
-    #[Route('/{route}/delete/{id<\d+>}}', name: 'delete', methods: ["GET", "DELETE"])]
+    #[Route('/{route}/delete/{id<\d+>}', name: 'delete', methods: ["GET", "DELETE"])]
     public function delete(string $route, int $id): Response
     {   
-        dd("hi");
         // provera iz koje tabele brišemo podatke
         // i prilagođavanje ruta varijabile za kasnije preusmeravanje
         switch ($route) {
@@ -39,7 +38,6 @@ class DashboardController extends AbstractController
         }
         
         $row = $repository->find($id);
-        dd($row);
         $this->em->remove($row);
         $this->em->flush();
 
